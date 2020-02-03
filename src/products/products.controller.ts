@@ -2,6 +2,7 @@ import { Controller, Get, Req, Res, Query, Post, Put, Delete, HttpCode, Header, 
 import { Request, Response } from 'express';
 import { ProductsService } from './products.service';
 import { CreateProductDTO } from './dto/create-product.dto';
+import { Product } from './dto/product.interface';
 
 @Controller('products')
 export class ProductsController {
@@ -20,7 +21,7 @@ export class ProductsController {
     }
 
     @Post()
-    create(@Body() product: CreateProductDTO): any {
+    async create(@Body() product: CreateProductDTO): Promise<Product[]> {
         return this.productService.create(product);
     }
 

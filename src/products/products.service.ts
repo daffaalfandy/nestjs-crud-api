@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { Product } from './dto/product.interface';
 
 @Injectable()
 export class ProductsService {
-    products = [];
+    products: Product[] = [];
     // Database logic
-    create(product): any {
+    create(product: Product) {
         this.products.push(product);
         return this.products;
     }
