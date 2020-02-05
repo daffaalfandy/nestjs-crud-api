@@ -8,35 +8,24 @@ import { Product } from './dto/product.interface';
 export class ProductsController {
     constructor(private readonly productService: ProductsService) { }
 
-    @Get()
-    findAll(
-        @Req()
-        request: Request,
-        @Res()
-        response: Response,
-        @Query() query,
-    ): any {
-        console.log(request);
-        return response.json({ msg: 'Find all' });
-    }
-
     @Post()
     async create(@Body() product: CreateProductDTO): Promise<Product[]> {
         return this.productService.create(product);
     }
 
-    @Put()
-    update(): any {
-        return 'UPDATE PRODUCT';
-    }
-
-    @Delete()
-    delete(): any {
-        return 'DELETE ENDPOINT';
+    @Get()
+    async find(@Param() params): Promise<Product[]> {
+        return this.productService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param() params): any {
-        return params;
+    async findOne(@Param() params): Promise<Product> {
+        return this.productService.findOne(params.id);
     }
+
+    @Delete(':id')
+    async delete(@Param() params): Promise<Product[]> {
+        return this.productService.delete(params.id);
+    }
+
 }
